@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { initialStat, readOnlyStatAtom, statAtom } from "./atom";
-import { useSetAtom } from "jotai";
+import { initialStat, readOnlyStatAtom, statAtom, gameKbnAtom } from "./atom";
+import { useAtom, useSetAtom } from "jotai";
 
 export default function Home() {
   const router = useRouter();
@@ -23,6 +23,8 @@ export default function Home() {
   const handleSettings = () => {
     router.push("/settings");
   };
+
+  const [gameKbn, setGameKbn] = useAtom(gameKbnAtom);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 via-blue-900 to-gray-900 flex flex-col items-center justify-center p-4">
@@ -123,10 +125,34 @@ export default function Home() {
             <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 w-8 md:w-16 h-8 md:h-16 bg-gradient-to-tl from-gray-400 via-gray-200 to-transparent rounded-full opacity-25 blur-sm"></div>
           </div>
         </div>
-
         <h1 className="text-white text-2xl md:text-4xl font-bold tracking-wider">
           Billiards Accuracy Meter
         </h1>
+        <div className="p-4">
+          <div className="flex flex-col gap-2">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="9"
+                checked={gameKbn === 9}
+                onChange={(event) => setGameKbn(Number(event.target.value))}
+                className="form-radio text-blue-600"
+              />
+              <span>9</span>
+            </label>
+
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="10"
+                checked={gameKbn === 10}
+                onChange={(event) => setGameKbn(Number(event.target.value))}
+                className="form-radio text-blue-600"
+              />
+              <span>10</span>
+            </label>
+          </div>
+        </div>
 
         <div className="flex flex-col space-y-4 w-full max-w-xs md:max-w-sm px-4 mx-auto">
           <button
