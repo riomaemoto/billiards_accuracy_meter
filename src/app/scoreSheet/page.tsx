@@ -62,6 +62,7 @@ export default function ScoreSheet() {
   const isViewingExistingStat = saveNewStat.id;
 
   useEffect(() => {
+    console.log("test");
     if (!saveNewStat.id) {
       setStatKbn(gameKbn);
     }
