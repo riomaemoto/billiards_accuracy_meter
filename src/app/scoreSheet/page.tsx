@@ -36,6 +36,8 @@ import {
   toggleAtom,
   readOnlyStatAtom,
   toastAtom,
+  statKbnAtom,
+  gameKbnAtom,
 } from "@/app/atom";
 import { BamScore } from "@/components/bamScore";
 import { BamScoreWithMissSafety } from "@/components/bamScoreWithMissSafety";
@@ -44,7 +46,7 @@ import { InGameStats } from "@/components/inGameStats";
 import { Toprow } from "@/components/toprow";
 import { PercentageRowbox } from "@/components/percentageRowbox";
 import { useRouter } from "next/navigation";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { sendStatsData, upDateStatsData } from "../supabase";
 import Toast from "@/components/Toast";
 
@@ -54,8 +56,16 @@ export default function ScoreSheet() {
   const router = useRouter();
   const readOnlyValue = useAtomValue(readOnlyStatAtom);
   const [toast, setToast] = useAtom(toastAtom);
+  const setStatKbn = useSetAtom(statKbnAtom);
+  const gameKbn = useAtomValue(gameKbnAtom);
 
   const isViewingExistingStat = saveNewStat.id;
+
+  useEffect(() => {
+    if (!saveNewStat.id) {
+      setStatKbn(gameKbn);
+    }
+  }, []);
 
   useEffect(() => {
     if (isViewingExistingStat) {

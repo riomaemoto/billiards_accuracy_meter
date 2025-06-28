@@ -1,12 +1,21 @@
-import { player1Atom, player2Atom, toggleAtom } from "@/app/atom";
+import {
+  player1Atom,
+  player2Atom,
+  gameKbnAtom,
+  toggleAtom,
+  statAtom,
+  statKbnAtom,
+} from "@/app/atom";
 import { useAtom, useAtomValue } from "jotai";
 
 export const Toprow = () => {
   const [leftName, setLeftName] = useAtom(player1Atom);
   const [rightName, setRightName] = useAtom(player2Atom);
   const isEditing = useAtomValue(toggleAtom);
+  const statKbn = useAtomValue(statKbnAtom);
   return (
     <div className="w-full">
+      <div className="text-center">{statKbn}</div>
       <div className="w-full max-w-[1400px] flex flex-row items-center justify-center">
         <input
           className={`w-[105px] md:w-[150px] h-[60px] md:h-[70px] border border-white/20 text-center text-[16px] bg-white/10 backdrop-blur-md text-white font-semibold placeholder-gray-300 ${

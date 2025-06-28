@@ -24,6 +24,7 @@ export type StatType = {
   shotAfterTheBreak: { left: number; right: number };
   consecutiveBreakandRuns: { left: number; right: number };
   breakAndRun: { left: number; right: number };
+  statKbn: number;
 };
 
 export const initialStat: StatType = {
@@ -44,13 +45,20 @@ export const initialStat: StatType = {
   shotAfterTheBreak: { left: 0, right: 0 },
   consecutiveBreakandRuns: { left: 0, right: 0 },
   breakAndRun: { left: 0, right: 0 },
+  statKbn: 0,
 };
+
+export const gameKbnAtom = atom<number>(9);
 
 export const readOnlyStatAtom = atom<StatType>(initialStat);
 
 export const toggleAtom = atom<boolean>(false);
 
 export const statAtom = atom<StatType>(initialStat);
+
+export const statKbnAtom = focusAtom(statAtom, (optic) =>
+  optic.prop("statKbn")
+);
 
 export const player1Atom = focusAtom(statAtom, (optic) =>
   optic.prop("player1")
@@ -153,7 +161,7 @@ export const breakAndRunRightAtom = focusAtom(statAtom, (optic) =>
 export type ToastNotification = {
   id: string;
   message: string;
-  type: 'success' | 'error' | 'info';
+  type: "success" | "error" | "info";
   isVisible: boolean;
 };
 
